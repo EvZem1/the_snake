@@ -41,6 +41,8 @@ clock = pygame.time.Clock()
 
 # Тут опишите все классы игры.
 class GameObject:
+    """Класс с игровыми объектами."""
+
     def __init__(self, position, color):
         self.position = position
         self.body_color = color
@@ -50,6 +52,8 @@ class GameObject:
 
 
 class Apple(GameObject):
+    """Класс яблока."""
+
     def __init__(self):
         super().__init__(self.randomize_position(), APPLE_COLOR)
 
@@ -66,6 +70,8 @@ class Apple(GameObject):
 
 
 class Snake(GameObject):
+    """Класс змеи и её поведения."""
+
     def __init__(self):
         super().__init__((SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2), SNAKE_COLOR)
         self.length = 1
