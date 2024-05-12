@@ -43,7 +43,7 @@ clock = pygame.time.Clock()
 class GameObject:
     """Класс с игровыми объектами."""
 
-    def __init__(self, position, color):
+    def __init__(self, position=(0, 0), color=(255, 255, 255)):
         self.position = position
         self.body_color = color
 
@@ -123,7 +123,7 @@ class Snake(GameObject):
         """Увеличение длины при поедании яблока."""
         self.length += 1
 
-    def get_head_position(self):
+    def get_line_position(self):
         """Возвращает текущую позицию головы змейки."""
         return self.positions[0]
 
