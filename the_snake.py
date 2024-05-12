@@ -48,6 +48,7 @@ class GameObject:
         self.body_color = color
 
     def draw(self):
+        """Функция рисования."""
         pass
 
 
@@ -58,12 +59,14 @@ class Apple(GameObject):
         super().__init__(self.randomize_position(), APPLE_COLOR)
 
     def randomize_position(self):
+        """Рандомизируем позицию яблока."""
         return (
             randint(0, GRID_WIDTH - 1) * GRID_SIZE,
-            randint(0, GRID_HEIGHT - 1) * GRID_SIZE
-            )
+            randint(0, GRID_HEIGHT - 1) * GRID_SIZE,
+        )
 
     def draw(self):
+        """Отрисовываем яблоко."""
         rect = pygame.Rect(self.position, (GRID_SIZE, GRID_SIZE))
         pygame.draw.rect(screen, self.body_color, rect)
         pygame.draw.rect(screen, BORDER_COLOR, rect, 1)
@@ -80,6 +83,7 @@ class Snake(GameObject):
         self.next_direction = None
 
     def update_direction(self):
+        """Обновляем позицию."""
         if self.next_direction and self.next_direction != (
             -self.direction[0], -self.direction[1]
         ):
@@ -87,6 +91,7 @@ class Snake(GameObject):
             self.next_direction = None
 
     def move(self):
+        """Прописываем движение."""
         new_head = (self.positions[0][0] + self.direction[0] * GRID_SIZE,
                     self.positions[0][1] + self.direction[1] * GRID_SIZE)
 
@@ -102,21 +107,25 @@ class Snake(GameObject):
                 self.positions.pop()
 
     def draw(self):
+        """Отрисовываем движение."""
         for position in self.positions:
             rect = pygame.Rect(position, (GRID_SIZE, GRID_SIZE))
             pygame.draw.rect(screen, self.body_color, rect)
             pygame.draw.rect(screen, BORDER_COLOR, rect, 1)
 
     def reset(self):
+        """Сброс при проигрыше."""
         self.positions = [(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)]
         self.length = 1
         self.direction = RIGHT
 
     def eat(self):
+        """Увеличение длины при поедании яблока."""
         self.length += 1
 
 
 def handle_keys(game_object):
+    """Клавиши управления."""
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -133,7 +142,7 @@ def handle_keys(game_object):
 
 
 def main():
-    # Инициализация PyGame:
+    """Инициализация PyGame"""
     pygame.init()
     # Тут нужно создать экземпляры классов.
     snake = Snake()
