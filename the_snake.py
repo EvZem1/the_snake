@@ -82,6 +82,10 @@ class Snake(GameObject):
         self.direction = RIGHT
         self.next_direction = None
 
+    def get_head_position(self):
+        """Возвращает текущую позицию головы змейки."""
+        return self.positions[0]
+
     def update_direction(self):
         """Обновляем позицию."""
         if self.next_direction and self.next_direction != (
@@ -122,10 +126,6 @@ class Snake(GameObject):
     def eat(self):
         """Увеличение длины при поедании яблока."""
         self.length += 1
-
-    def get_line_position(self):
-        """Возвращает текущую позицию головы змейки."""
-        return self.positions[0]
 
 
 def handle_keys(game_object):
