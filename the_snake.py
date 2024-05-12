@@ -123,6 +123,10 @@ class Snake(GameObject):
         """Увеличение длины при поедании яблока."""
         self.length += 1
 
+    def get_head_position(self):
+        """Возвращает текущую позицию головы змейки."""
+        return self.positions[0]
+
 
 def handle_keys(game_object):
     """Клавиши управления."""
