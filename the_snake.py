@@ -60,7 +60,9 @@ class GameObject:
 class Apple(GameObject):
     """Класс яблока."""
 
-    def __init__(self, occupied_positions):
+    def __init__(self, occupied_positions=None):
+        if occupied_positions is None:
+            occupied_positions = []
         position = self.randomize_position(occupied_positions)
         super().__init__(position, APPLE_COLOR)
 
