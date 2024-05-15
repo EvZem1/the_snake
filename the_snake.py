@@ -61,7 +61,8 @@ class Apple(GameObject):
     """Класс яблока."""
 
     def __init__(self, occupied_positions):
-        super().__init__(self.randomize_position(occupied_positions), APPLE_COLOR)
+        position = self.randomize_position(occupied_positions)
+        super().__init__(position, APPLE_COLOR)
 
     def randomize_position(self, occupied_positions):
         """Рандомизируем позицию яблока, чтобы не пересекалось со змейкой."""
@@ -92,7 +93,10 @@ class Snake(GameObject):
 
     def update_direction(self):
         """Обновляем направление движения змейки."""
-        if self.next_direction and self.next_direction != (-self.direction[0], -self.direction[1]):
+        if (
+         self.next_direction and
+         self.next_direction != (-self.direction[0], -self.direction[1])
+        ):
             self.direction = self.next_direction
             self.next_direction = None
 
