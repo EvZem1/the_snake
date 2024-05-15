@@ -60,11 +60,11 @@ class GameObject:
 class Apple(GameObject):
     """Класс яблока."""
 
-    def __init__(self):
-        super().__init__(self.randomize_position([]), APPLE_COLOR)
+    def __init__(self, occupied_positions):
+        super().__init__(self.randomize_position(occupied_positions), APPLE_COLOR)
 
     def randomize_position(self, occupied_positions):
-        """Рандомизируем позицию яблока, чтобы не появлялось змейке."""
+        """Рандомизируем позицию яблока, чтобы не пересекалось со змейкой."""
         while True:
             new_position = (
                 randint(0, GRID_WIDTH - 1) * GRID_SIZE,
@@ -92,9 +92,7 @@ class Snake(GameObject):
 
     def update_direction(self):
         """Обновляем направление движения змейки."""
-        if self.next_direction and self.next_direction != (
-            -self.direction[0], -self.direction[1]
-        ):
+        if self.next_direction and self.next_direction != (-self.direction[0], -self.direction[1]):
             self.direction = self.next_direction
             self.next_direction = None
 
@@ -142,9 +140,8 @@ def handle_keys(game_object):
 def main():
     """Инициализация PyGame"""
     pygame.init()
-    # Создаем экземпляры классов.
     snake = Snake()
-    apple = Apple()
+    apple = Apple(snake.positions)
 
     while True:
         clock.tick(SPEED)
@@ -152,12 +149,11 @@ def main():
         snake.update_direction()
         snake.move()
 
-        # Проверяем столкновение с собой
         if snake.get_head_position() in snake.positions[2:]:
             snake.reset()
+            apple.position = apple.randomize_position(snake.positions)
 
-        # Проверяем съела ли змейка яблоко
-        if snake.get_head_position() == apple.position:
+        elif snake.get_head_position() == apple.position:
             snake.length += 1
             apple.position = apple.randomize_position(snake.positions)
 
